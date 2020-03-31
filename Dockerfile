@@ -4,7 +4,7 @@ LABEL maintainer="isaac.gittins@amaysim.com.au"
 RUN apk --no-cache add python3 bash git jq gettext make nodejs npm
 
 RUN pip3 install --no-cache-dir --upgrade pip
-RUN pip3 install --no-cache-dir cfn-lint cfn-flip yamllint stacker==1.6 awscli python-dateutil==2.8.0 jinja2 pyyaml
+RUN pip3 install --no-cache-dir cfn-lint cfn-flip yamllint stacker awscli python-dateutil==2.8.0 jinja2 pyyaml
 
 RUN mkdir -p /tmp/yarn && \
   mkdir -p /opt/yarn/dist && \
