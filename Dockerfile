@@ -1,7 +1,7 @@
 FROM alpine:latest
 LABEL maintainer="isaac.gittins@amaysim.com.au"
 
-RUN apk --no-cache add python3 bash git jq gettext make nodejs npm py3-pip curl groff
+RUN apk --no-cache add python3 bash git jq gettext make nodejs npm py3-pip curl groff openssl
 
 RUN pip3 install --no-cache-dir --upgrade pip && \
     pip3 install --no-cache-dir wheel && \
