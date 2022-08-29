@@ -5,9 +5,10 @@ RUN apk update && apk upgrade && apk --no-cache add bash git jq gettext make nod
 
 RUN pip3 install --no-cache-dir --upgrade pip && \
     pip3 install --no-cache-dir wheel && \
-    pip3 install --no-cache-dir cfn-lint cfn-flip yamllint stacker awscli python-dateutil==2.8.0 jinja2 pyyaml shellcheck-py
+    pip3 install --no-cache-dir cfn-lint==0.63.0 cfn-flip yamllint stacker awscli python-dateutil==2.8.0 jinja2 pyyaml shellcheck-py
 
-RUN cfn-lint -u
+# Disable until CFN Defs Spec >= 86 resolves AWS::RDS::DBCluster Attributes spec issue
+# RUN cfn-lint -u
 
 RUN mkdir -p /tmp/yarn && \
   mkdir -p /opt/yarn/dist && \
