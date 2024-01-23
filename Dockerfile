@@ -2,7 +2,7 @@ FROM amazonlinux:2023
 LABEL maintainer="isaac.gittins@amaysim.com.au"
 
 RUN dnf -y upgrade && \
-    dnf -y --allowerasing install python3-pip python3-setuptools python3-wheel git jq gettext make nodejs npm curl groff openssl wget tar gzip findutils awscli-2 && \
+    dnf -y --allowerasing install diffutils python3-pip python3-setuptools python3-wheel git jq gettext make nodejs npm curl groff openssl wget tar gzip findutils awscli-2 && \
     dnf clean all
 
 RUN pip3 install --no-cache-dir --upgrade cfn-lint cfn-flip yamllint stacker python-dateutil==2.8.0 jinja2 pyyaml shellcheck-py
