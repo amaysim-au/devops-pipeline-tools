@@ -1,5 +1,5 @@
 FROM amazonlinux:2023
-LABEL maintainer="isaac.gittins@amaysim.com.au"
+LABEL maintainer="CloudEng"
 
 COPY ./files/bin/* /usr/local/bin/
 
