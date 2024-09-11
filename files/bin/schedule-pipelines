@@ -1,0 +1,54 @@
+#! /usr/bin/env python3
+
+import os
+import sys
+import requests
+
+if __name__ == '__main__':
+
+    if 'GOCD_USER' not in os.environ:
+        print("Please set the GOCD_USER environment variable to the GoCD user to authenticate with.")
+        exit(1)
+    if 'GOCD_PASSWORD_ENC' not in os.environ:
+        print("Please set the GOCD_PASSWORD_ENC environment variable to the GoCD password to authenticate with.")
+        exit(1)
+    if 'SCHEDULE_PIPELINES' not in os.environ:
+        print("Please set the SCHEDULE_PIPELINES environment variable to a comma separated list of pipelines to schedule.")
+        exit(1)
+
+    gocd_user = os.environ.get('GOCD_USER')
+    gocd_password = os.environ.get('GOCD_PASSWORD_ENC')
+    pipelines = os.environ.get('SCHEDULE_PIPELINES').split(',')
+
+    headers = {
+        'Accept': 'application/vnd.go.cd.v1+json',
+        'Content-Type': 'application/json',
+        'X-GoCD-Confirm': 'true',
+    }
+
+    is_error = False
+
+    for pipeline in pipelines:
+        print(f"Scheduling pipeline: {pipeline}")
+        try:
+            response = requests.post(
+                f"https://gocd-master.amaysim.net:8154/go/api/pipelines/{pipeline}/schedule",
+                headers=headers,
+                auth=(gocd_user, gocd_password),
+                verify=False,
+            )
+            response.raise_for_status()
+            print(f" - Pipeline {pipeline} scheduled successfully")
+            print(response.text)
+        except requests.exceptions.HTTPError as e:
+            print(f" - Error scheduling pipeline {pipeline}: {e}")
+            is_error = True
+        except Exception as e:
+            print(f" - Error scheduling pipeline {pipeline}: {e}")
+            is_error = True
+
+    if is_error:
+        print("Error scheduling one or more pipelines")
+        sys.exit(1)
+
+    print("All pipelines scheduled successfully")

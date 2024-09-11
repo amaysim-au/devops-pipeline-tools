@@ -7,7 +7,7 @@ RUN dnf -y upgrade && \
     dnf -y --allowerasing install diffutils python3-pip python3-setuptools python3-wheel git jq gettext make nodejs npm curl groff openssl wget tar gzip findutils awscli-2 && \
     dnf clean all
 
-RUN pip3 install --no-cache-dir --upgrade cfn-lint==0.87.6 cfn-flip yamllint stacker jinja2 pyyaml shellcheck-py pylint
+RUN pip3 install --no-cache-dir --upgrade cfn-lint==0.87.6 cfn-flip yamllint stacker jinja2 pyyaml shellcheck-py pylint requests
 
 RUN mkdir -p /tmp/yarn && \
   mkdir -p /opt/yarn/dist && \
@@ -23,4 +23,3 @@ RUN mkdir -p /tmp/yarn && \
   yarn global add aws-cdk typescript ts-node
 
 WORKDIR /mnt/src
-ENTRYPOINT [ "/bin/bash" ]
