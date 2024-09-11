@@ -23,4 +23,3 @@ RUN mkdir -p /tmp/yarn && \
   yarn global add aws-cdk typescript ts-node
 
 WORKDIR /mnt/src
-ENTRYPOINT [ "/bin/bash" ]
