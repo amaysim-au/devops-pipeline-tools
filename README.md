@@ -8,6 +8,7 @@ Some helpful pipeline tools
  * yamllint
  * cfn-int
  * cfn-flip
+ * requests
 * jq
 * bash
 * git
