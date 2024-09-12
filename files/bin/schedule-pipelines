@@ -2,6 +2,7 @@
 
 import os
 import sys
+import warnings
 import requests
 
 if __name__ == '__main__':
@@ -31,15 +32,17 @@ if __name__ == '__main__':
     for pipeline in pipelines:
         print(f"Scheduling pipeline: {pipeline}")
         try:
-            response = requests.post(
-                f"https://gocd-master.amaysim.net:8154/go/api/pipelines/{pipeline}/schedule",
-                headers=headers,
-                auth=(gocd_user, gocd_password),
-                verify=False,
-            )
-            response.raise_for_status()
-            print(f" - Pipeline {pipeline} scheduled successfully")
-            print(response.text)
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                response = requests.post(
+                    f"https://gocd-master.amaysim.net:8154/go/api/pipelines/{pipeline}/schedule",
+                    headers=headers,
+                    auth=(gocd_user, gocd_password),
+                    verify=False,
+                )
+                response.raise_for_status()
+                print(f" - Pipeline {pipeline} scheduled successfully")
+                print(response.text)
         except requests.exceptions.HTTPError as e:
             print(f" - Error scheduling pipeline {pipeline}: {e}")
             is_error = True
